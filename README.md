@@ -18,7 +18,7 @@ Este proyecto automatiza la instalación de un servicio ligero en el sistema que
 
 ## 🤔 ¿Cómo Funciona?
 
-El script principal (`instalar.bat`) realiza las siguientes acciones:
+El script principal (`AudioLatency.bat`) realiza las siguientes acciones:
 
 1.  **Verifica los permisos** para asegurar que se ejecuta como Administrador.
 2.  **Crea una carpeta** en `C:\AudioLatencyReducer`.
@@ -31,8 +31,8 @@ El script principal (`instalar.bat`) realiza las siguientes acciones:
 
 Sigue estos sencillos pasos para ponerlo en marcha:
 
-1.  Ve a la sección de **[Releases](https://github.com/TuUsuario/TuRepositorio/releases)** de este repositorio.
-2.  Descarga el script `GIANBEST_Optimizer.bat` (o el paquete `.zip` completo).
+1.  Ve a la sección de **[Releases](https://github.com/GIANBEST/AudioLatency)** de este repositorio.
+2.  Descarga el script `AudioLatency.bat` (o el paquete `.zip` completo).
 3.  Haz **clic derecho** sobre el archivo descargado y selecciona **"Ejecutar como administrador"**.
 4.  Sigue las instrucciones que aparecerán en la pantalla. ¡Y listo!
 
@@ -42,7 +42,7 @@ Sigue estos sencillos pasos para ponerlo en marcha:
 
 Si deseas eliminar el servicio y todos los archivos:
 
-1.  Descarga y ejecuta el script `desinstalar.bat` desde la sección de **[Releases](https://github.com/TuUsuario/TuRepositorio/releases)**.
+1.  Descarga y ejecuta el script `AudioLatencyUninstaller.bat` desde la sección de **[Releases](https://github.com/GIANBEST/AudioLatency)**.
 2.  Asegúrate de ejecutarlo también como **administrador**.
 3.  El script detendrá y eliminará el servicio, y borrará la carpeta de instalación.
 
