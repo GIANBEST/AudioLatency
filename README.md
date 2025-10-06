@@ -32,7 +32,7 @@ El script principal (`AudioLatency.bat`) realiza las siguientes acciones:
 Sigue estos sencillos pasos para ponerlo en marcha:
 
 1.  Ve a la sección de **[Releases](https://github.com/GIANBEST/AudioLatency)** de este repositorio.
-2.  Descarga el script `AudioLatency.bat` (o el paquete `.zip` completo).
+2.  Descarga el script `AudioLatency.bat`.
 3.  Haz **clic derecho** sobre el archivo descargado y selecciona **"Ejecutar como administrador"**.
 4.  Sigue las instrucciones que aparecerán en la pantalla. ¡Y listo!
 
