@@ -7,17 +7,23 @@
     servicio de Windows (GIANBESTAudio) con inicio automático.
     También permite desinstalarlo y consultar el estado.
 
-    Todo en uno: clic derecho > "Ejecutar con PowerShell". Si se abre con Windows PowerShell 5.1,
-    el script busca PowerShell 7 (o lo instala con winget) y se relanza ahí como administrador.
+    Todo en uno: se puede ejecutar con clic derecho > "Ejecutar con PowerShell" o con un solo
+    comando desde la consola (ver EJEMPLOS). Si se abre con Windows PowerShell 5.1, el script
+    busca PowerShell 7 (o lo instala con winget) y se relanza ahí como administrador.
 
-    Nota para editar: el bloque de arranque debe poder parsearse en Windows PowerShell 5.1,
-    así que en este archivo no se usan los operadores ??, ?:, && ni ||.
+    Notas para editar este archivo:
+    - Debe poder parsearse en Windows PowerShell 5.1: no usar los operadores ??, ?:, && ni ||.
+    - No usar 'exit' en el nivel superior: cuando se ejecuta como scriptblock (comando de una
+      línea) 'exit' cerraría la consola del usuario. Se usa 'return'.
 
 .PARAMETER Action
     Install | Uninstall | Status. Sin este parámetro se muestra un menú interactivo.
 
 .PARAMETER NoPause
     No espera una tecla al terminar (útil para automatizar).
+
+.EXAMPLE
+    & ([scriptblock]::Create((irm "https://raw.githubusercontent.com/GIANBEST/AudioLatency/main/AudioLatency.ps1")))
 
 .EXAMPLE
     pwsh -File .\AudioLatency.ps1
@@ -33,9 +39,24 @@ param(
 )
 
 #region Argumentos de relanzamiento
-$relaunch = @('-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', "`"$PSCommandPath`"")
-if ($Action)  { $relaunch += @('-Action', $Action) }
-if ($NoPause) { $relaunch += '-NoPause' }
+# URL desde la que se vuelve a descargar el script cuando se ejecutó sin archivo (comando de una línea).
+$ScriptUrl = 'https://raw.githubusercontent.com/GIANBEST/AudioLatency/main/AudioLatency.ps1'
+
+$relaunch = @('-NoProfile', '-ExecutionPolicy', 'Bypass')
+if ($PSCommandPath) {
+    # Ejecutado desde un archivo .ps1
+    $relaunch += @('-File', "`"$PSCommandPath`"")
+    if ($Action)  { $relaunch += @('-Action', $Action) }
+    if ($NoPause) { $relaunch += '-NoPause' }
+}
+else {
+    # Ejecutado como scriptblock: no hay archivo, así que se relanza descargándolo de nuevo.
+    $extra = ''
+    if ($Action)  { $extra += " -Action $Action" }
+    if ($NoPause) { $extra += ' -NoPause' }
+    $relaunchCmd = "& ([scriptblock]::Create((irm '$ScriptUrl').TrimStart([char]0xFEFF)))$extra"
+    $relaunch += @('-Command', "`"$relaunchCmd`"")
+}
 #endregion
 
 #region Arranque: asegurar PowerShell 7 (si se abrió con Windows PowerShell 5.1)
@@ -58,7 +79,7 @@ if ($PSVersionTable.PSVersion.Major -lt 7) {
     if (-not $pwsh) {
         Write-Host 'No se pudo obtener PowerShell 7. Descárgalo desde https://aka.ms/powershell' -ForegroundColor Red
         [void](Read-Host 'Presiona Enter para salir')
-        exit 1
+        return
     }
 
     try {
@@ -68,7 +89,7 @@ if ($PSVersionTable.PSVersion.Major -lt 7) {
         Write-Host 'Se necesitan permisos de administrador. Operación cancelada.' -ForegroundColor Red
         [void](Read-Host 'Presiona Enter para salir')
     }
-    exit
+    return
 }
 #endregion
 
@@ -85,7 +106,7 @@ if (-not $isAdmin) {
     catch {
         Write-Host 'Se necesitan permisos de administrador. Operación cancelada.' -ForegroundColor Red
     }
-    exit
+    return
 }
 #endregion
 
@@ -478,4 +499,3 @@ $Host.UI.RawUI.WindowTitle = 'GIANBEST Audio Latency Optimizer'
 
 if ($Action) { Invoke-Action $Action } else { Show-Menu }
 
-exit ([int]$script:HadError)

@@ -1,53 +1,70 @@
 # GIANBEST Audio Latency Optimizer 🚀
 
-Un script simple y efectivo diseñado para reducir la latencia de audio en Windows 10 y 11. Ideal para gamers, streamers, productores de música y cualquier usuario que busque una respuesta de sonido más rápida y precisa.
+A simple and effective script designed to reduce audio latency in Windows 10 and 11. Ideal for gamers, streamers, music producers and any user looking for faster and more accurate sound response.
 
-Este proyecto automatiza la instalación de un servicio ligero en el sistema que se encarga de optimizar el procesamiento de audio, minimizando el molesto retraso entre la acción y el sonido.
-
----
-
-## ✨ Características Principales
-
-* **Instalación Automatizada:** Ejecuta un único archivo `.bat` como administrador y el script se encargará de todo.
-* **Servicio Ligero:** El servicio instalado consume recursos mínimos y se ejecuta discretamente en segundo plano.
-* **Fácil de Usar:** No se requieren conocimientos técnicos. La interfaz en la consola te guía en cada paso.
-* **Incluye Desinstalador:** Se proporciona un script para revertir todos los cambios de forma limpia y segura, eliminando el servicio y los archivos.
-* **Compatible:** Diseñado y probado para funcionar en Windows 10 y Windows 11.
+This project automates the installation of a lightweight service in the system that is responsible for optimizing audio processing, minimizing the annoying delay between action and sound.
 
 ---
 
-## 🤔 ¿Cómo Funciona?
+## ✨ Main features
 
-El script principal (`AudioLatency.bat`) realiza las siguientes acciones:
-
-1.  **Verifica los permisos** para asegurar que se ejecuta como Administrador.
-2.  **Crea una carpeta** en `C:\AudioLatencyReducer`.
-3.  **Descarga los componentes necesarios** (`nssm.exe` para gestionar servicios y `REAL.exe`, el optimizador).
-4.  **Instala, configura e inicia un nuevo servicio** en Windows llamado `GIANBEST Audio Latency Reducer Service` para que se ejecute automáticamente.
-
----
-
-## 🔧 Instalación
-
-Sigue estos sencillos pasos para ponerlo en marcha:
-
-1.  Ve a la sección de **[Releases](https://github.com/GIANBEST/AudioLatency)** de este repositorio.
-2.  Descarga el script `AudioLatency.bat`.
-3.  Haz **clic derecho** sobre el archivo descargado y selecciona **"Ejecutar como administrador"**.
-4.  Sigue las instrucciones que aparecerán en la pantalla. ¡Y listo!
+* **One-command installation:** Paste a line into PowerShell and the script takes care of everything. You can also run the `.ps1` file with right click.
+* **All in one:** A single script with menu to **install**, **uninstall** and **view the status** of the service.
+* **Lightweight Service:**The installed service consumes minimal resources and runs discreetly in the background.
+* **Easy to Use:** No technical knowledge required. The interface on the console guides you through each step.
+* **Clean uninstall:**Reverses all changes, deleting the service and files.
+* **Compatible:** Designed for Windows 10 and 11. Use PowerShell 7; If you don't have it, the script offers you to install it with `winget`.
 
 ---
 
-## 🗑️ Desinstalación
+## 🤔 How does it work?
 
-Si deseas eliminar el servicio y todos los archivos:
+The script (`AudioLatency.ps1`) performs the following actions:
 
-1.  Descarga y ejecuta el script `AudioLatencyUninstaller.bat` desde la sección de **[Releases](https://github.com/GIANBEST/AudioLatency)**.
-2.  Asegúrate de ejecutarlo también como **administrador**.
-3.  El script detendrá y eliminará el servicio, y borrará la carpeta de instalación.
+1.  **Relaunches in PowerShell 7 as Administrator** (Windows will ask you to confirm permission).
+2.  **Create a folder** in `C:\AudioLatencyReducer`.
+3.  **Download and check the necessary components** (`nssm.exe` to manage services and `REAL.exe`, the optimizer).
+4.  **Install, configure, and start a new service** in Windows called `GIANBEST Audio Latency Reducer Service` to run automatically.
 
 ---
 
-## ⚠️ Descargo de Responsabilidad
+## 🔧 Installation
 
-Este es un proyecto personal y no oficial. Las herramientas descargadas (`nssm.exe`, `REAL.exe`) pertenecen a sus respectivos creadores. Utiliza este script bajo tu propio riesgo. No me hago responsable de posibles problemas en tu sistema, aunque ha sido diseñado para ser lo más seguro y reversible posible.
+### Option 1: a single command (recommended)
+
+Open **PowerShell** (or Terminal), paste this line and press Enter:
+
+```powershell
+& ([scriptblock]::Create((irm "https://raw.githubusercontent.com/GIANBEST/AudioLatency/main/AudioLatency.ps1").TrimStart([char]0xFEFF)))
+```
+
+Accept the administrator permissions notice and choose the **1** option from the menu. And ready!
+
+### Option 2: manual
+
+1.  Download `AudioLatency.ps1` from the **[Releases](https://github.com/GIANBEST/AudioLatency/releases)** section or from this repository.
+2.  Right **click** on the file and select **"Run with PowerShell"**.
+3.  Choose option **1** from the menu.
+
+> 🔍 **Security:** The Option 1 command downloads and executes the script with administrator permissions. If you prefer to check the code first, you can read it here: [AudioLatency.ps1](https://github.com/GIANBEST/AudioLatency/blob/main/AudioLatency.ps1).
+
+---
+
+## 🗑 ️ Uninstall
+
+If you want to delete the service and all files:
+
+* **From the menu:** run the script as in the installation and choose the **2** option.
+* **With a command:** paste this line into PowerShell:
+
+```powershell
+& ([scriptblock]::Create((irm "https://raw.githubusercontent.com/GIANBEST/AudioLatency/main/AudioLatency.ps1").TrimStart([char]0xFEFF))) -Action Uninstall
+```
+
+The script will stop and delete the service, and delete the installation folder.
+
+---
+
+## ⚠️ Disclaimer
+
+This is a personal and unofficial project. The downloaded tools (`nssm.exe`, `REAL.exe`) belong to their respective creators. Use this script at your own risk. I am not responsible for possible problems with your system, although it has been designed to be as secure and reversible as possible.
