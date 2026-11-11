@@ -38,18 +38,6 @@ Open **PowerShell** (or Terminal), paste this line and press Enter:
 & ([scriptblock]::Create((irm "https://raw.githubusercontent.com/GIANBEST/AudioLatency/main/AudioLatency.ps1").TrimStart([char]0xFEFF)))
 ```
 
-Accept the administrator permissions notice and choose the **1** option from the menu. And ready!
-
-### Option 2: manual
-
-1.  Download `AudioLatency.ps1` from the **[Releases](https://github.com/GIANBEST/AudioLatency/releases)** section or from this repository.
-2.  Right **click** on the file and select **"Run with PowerShell"**.
-3.  Choose option **1** from the menu.
-
-> 🔍 **Security:** The Option 1 command downloads and executes the script with administrator permissions. If you prefer to check the code first, you can read it here: [AudioLatency.ps1](https://github.com/GIANBEST/AudioLatency/blob/main/AudioLatency.ps1).
-
----
-
 ## 🗑 ️ Uninstall
 
 If you want to delete the service and all files:
